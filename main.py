@@ -2,10 +2,12 @@ import pygame
 import numpy as np
 import sys
 
+# SETUP STUFF
+
 pygame.init()
 
 fullscreen = True
-unscaled = (200,150)
+unscaled = (300,225)
 
 # make scaled screen
 if fullscreen:
@@ -21,6 +23,10 @@ else:
   blit_offset = 0
   screen = pygame.Surface(unscaled)
 
+pygame.mouse.set_visible(False)
+
+# FUNCITONS
+
 # scaled mouse positions
 def getMX():
   return np.round((pygame.mouse.get_pos()[0] - blit_offset) / scale - .5)
@@ -29,7 +35,7 @@ def getMY():
 def getM():
   return (getMX(), getMY())
 
-# game loop
+# GAME LOOP
 while True:
   for event in pygame.event.get():
     # closing window
@@ -45,8 +51,7 @@ while True:
   WIN.fill((0,0,0))
 
   pygame.draw.circle(screen, (255,255,255), (screen.get_width()/2, screen.get_height()/2), 100)
-  pygame.draw.rect(screen, (255,0,0), pygame.Rect(getMX(),getMY(),1,1))
-  pygame.draw.circle(screen, (255,0,0), getM(), 5, 1)
+  pygame.draw.rect(screen, (255,0,0), pygame.Rect(getMX()-1,getMY()-1,3,3))
 
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
