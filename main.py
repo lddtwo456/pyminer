@@ -4,7 +4,11 @@ import sys
 
 from utils.Vector2D import Vector2D
 
+
+
 # SETUP STUFF
+
+
 
 pygame.init()
 
@@ -31,7 +35,11 @@ pygame.mouse.set_visible(False)
 v = Vector2D(2,2)
 print(str(v.normalize()))
 
+
+
 # FUNCITONS
+
+
 
 # scaled mouse positions
 def getMX():
@@ -41,7 +49,12 @@ def getMY():
 def getM():
   return (getMX(), getMY())
 
+
+
 # GAME LOOP
+
+
+
 while True:
   for event in pygame.event.get():
     # closing window
