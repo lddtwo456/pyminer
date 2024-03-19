@@ -51,11 +51,9 @@ while True:
   WIN.fill((0,0,0))
 
   pygame.draw.circle(screen, (255,255,255), (screen.get_width()/2, screen.get_height()/2), 100)
-  pygame.draw.rect(screen, (255,0,0), pygame.Rect(getMX()-1,getMY()-1,3,3))
+  screen.blit(pygame.image.load("./assets/ui/cursor.png"), (getMX(),getMY()))
 
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
-
-  print(f"{getMX()}, {getMY()}")
 
   pygame.display.flip()
