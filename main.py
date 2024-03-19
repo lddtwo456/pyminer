@@ -2,6 +2,8 @@ import pygame
 import numpy as np
 import sys
 
+from utils.Vector2D import Vector2D
+
 # SETUP STUFF
 
 pygame.init()
@@ -23,7 +25,11 @@ else:
   blit_offset = 0
   screen = pygame.Surface(unscaled)
 
+# hide mouse
 pygame.mouse.set_visible(False)
+
+v = Vector2D(2,2)
+print(str(v.normalize()))
 
 # FUNCITONS
 
