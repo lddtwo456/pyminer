@@ -3,7 +3,6 @@ import numpy as np
 import sys
 
 from Camera import Camera
-from Globals import Globals
 from Player import Player
 from utils.MouseFunctions import MouseFunctions
 from utils.Vector2D import Vector2D
@@ -16,13 +15,30 @@ from utils.Vector2D import Vector2D
 
 pygame.init()
 
+fullscreen = True
+unscaled = (320,240)
+
+# make scaled screen
+if fullscreen:
+  WIN = pygame.display.set_mode((0, 0))
+
+  blit_offset = np.round((WIN.get_width() - (np.round(WIN.get_height() * (unscaled[0]/unscaled[1])))) / 2)
+  scale = WIN.get_height()/unscaled[1]
+  screen = pygame.Surface(unscaled)
+else:
+  scale = 2
+  WIN = pygame.display.set_mode((unscaled[0]*scale, unscaled[1]*scale))
+
+  blit_offset = 0
+  screen = pygame.Surface(unscaled)
+
 # hide mouse
 pygame.mouse.set_visible(False)
 
-# init global classes
-Globals.PLAYER = Player()
-Globals.MOUSE = MouseFunctions()
-Globals.CAMERA = Camera(Globals.PLAYER)
+# class inits
+player = Player()
+mouse = MouseFunctions(blit_offset, scale)
+camera = Camera(player, 0.1, unscaled)
 
 
 
@@ -42,23 +58,20 @@ while True:
       pygame.quit()
       sys.exit()
 
-  Globals.PLAYER.update()
+  player.update()
 
   # FRAME DRAWING
-  Globals.CAMERA.update()
+  camera.update()
 
-  Globals.SCREEN.fill((0,0,0))
-  Globals.WIN.fill((0,0,0))
+  screen.fill((0,0,0))
+  WIN.fill((0,0,0))
 
-  pygame.draw.circle(Globals.SCREEN, (255,255,255), (40-Globals.CAMERA.pos[0], 40-Globals.CAMERA.pos[1]), 50)
-  pygame.draw.circle(Globals.SCREEN, (255,255,255), (120-Globals.CAMERA.pos[0], 160-Globals.CAMERA.pos[1]), 75)
-  pygame.draw.circle(Globals.SCREEN, (255,255,255), (20-Globals.CAMERA.pos[0], 120-Globals.CAMERA.pos[1]), 30)
-  pygame.draw.circle(Globals.SCREEN, (255,255,255), (230-Globals.CAMERA.pos[0], -20-Globals.CAMERA.pos[1]), 90)
-  Globals.SCREEN.blit(pygame.image.load("./assets/ui/cursor.png"), Globals.MOUSE.getM())
-  Globals.PLAYER.draw()
+  pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
+  screen.blit(pygame.image.load("./assets/ui/cursor.png"), mouse.getM())
+  player.draw(camera, screen)
 
-  scaled_screen = pygame.transform.scale(Globals.SCREEN, (Globals.SCALE*Globals.SCREEN.get_width(), Globals.SCALE*Globals.SCREEN.get_height()))
-  Globals.WIN.blit(scaled_screen, (Globals.BLIT_OFFSET, 0))
+  scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
+  WIN.blit(scaled_screen, (blit_offset, 0))
 
   pygame.display.flip()
 
