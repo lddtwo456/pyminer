@@ -8,8 +8,9 @@ class Player:
     self.pos = Vector2D(0, 0)
     self.velocity = Vector2D(0, 0)
 
-    # screen position and collisions
+    # screen position and collisions, center used for camera centering
     self.rect = pygame.Rect(self.pos[0], self.pos[1], 8, 12)
+    self.center = Vector2D(self.rect.width/2, self.rect.height/2)
 
     # separate outside and movement velocy so there can be a max movement speed and you can be blown back by stuff
     self.mvmt_velocity = Vector2D(0, 0)
@@ -55,6 +56,9 @@ class Player:
     if (self.mvmt_velocity != self.mvmt_vector*self.mvmt_speed):
       self.mvmt_velocity.lerpTo(self.mvmt_vector*self.mvmt_speed, self.mvmt_lerp)
       self.mvmt_velocity.snapTo(self.mvmt_vector*self.mvmt_speed)
+
+  def draw(self, camera, WIN):
+    pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-camera.pos[0], self.rect.top-camera.pos[1], self.rect.width, self.rect.height))
 
   # gets with dunder
   def __getitem__(self, i):

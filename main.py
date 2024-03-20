@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 import sys
 
+from Camera import Camera
 from Player import Player
 from utils.MouseFunctions import MouseFunctions
 from utils.Vector2D import Vector2D
@@ -37,6 +38,7 @@ pygame.mouse.set_visible(False)
 # class inits
 player = Player()
 mouse = MouseFunctions(blit_offset, scale)
+camera = Camera(player, 0.1, unscaled)
 
 
 
@@ -60,13 +62,14 @@ while True:
   print(player.mvmt_velocity)
 
   # FRAME DRAWING
+  camera.update()
 
   screen.fill((0,0,0))
   WIN.fill((0,0,0))
 
-  pygame.draw.circle(screen, (255,255,255), (screen.get_width()/2, screen.get_height()/2), 100)
+  pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
   screen.blit(pygame.image.load("./assets/ui/cursor.png"), mouse.getM())
-  pygame.draw.rect(screen, (255,0,0), player)
+  player.draw(camera, screen)
 
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
