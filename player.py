@@ -2,9 +2,53 @@ import pygame
 import numpy as np
 from utils.Vector2D import Vector2D
 
-class player:
+class Player:
   def __init__(self):
-    self.rect = pygame.Rect(0, 0, 20, 40)
+    # pos vector allows for subpixel movements
+    self.pos = Vector2D(0, 0)
+    self.velocity = Vector2D(0, 0)
+
+    # screen position and collisions
+    self.rect = pygame.Rect(self.pos[0], self.pos[1], 8, 12)
+
+    # separate outside and movement velocy so there can be a max movement speed and you can be blown back by stuff
+    self.mvmt_velocity = Vector2D(0, 0)
+    self.mvmt_vector = Vector2D(0, 0)
+
+    # max speed (magnitude of acceleration vector)
+    self.mvmt_speed = 1.5
+    # lerp to target movement velocity speed
+    self.mvmt_lerp = .25
+    # percent of velocity vector that lo
+    self.friction = .1
+
+  def move(self, keys):
+    if keys[pygame.K_a]:
+      l = -1
+    else:
+      l = 0
+    if keys[pygame.K_d]:
+      r = 1
+    else:
+      r = 0
+    if keys[pygame.K_w]:
+      u = -1
+    else:
+      u = 0
+    if keys[pygame.K_s]:
+      d = 1
+    else:
+      d = 0
+
+    self.mvmt_vector = Vector2D(l+r, u+d).normalize()
+
+    if (self.mvmt_velocity != self.mvmt_vector*self.mvmt_speed):
+      self.mvmt_velocity.lerpTo(self.mvmt_vector*self.mvmt_speed, self.mvmt_lerp)
+
+  def update(self):
+    self.pos += self.mvmt_velocity
+    self.rect.left = np.round(self.pos[0])
+    self.rect.top = np.round(self.pos[1])
 
   # gets with dunder
   def __getitem__(self, i):
@@ -13,3 +57,7 @@ class player:
         return self.rect.left
       case 1:
         return self.rect.top
+      case 2:
+        return self.rect.width
+      case 3:
+        return self.rect.height

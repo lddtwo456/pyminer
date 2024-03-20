@@ -13,7 +13,11 @@ class Vector2D:
     if m != 0:
       return Vector2D(self[0]/m, self[1]/m)
     else:
-      raise ValueError("Cannot normalize zero vector")
+      return Vector2D(0, 0)
+    
+  def lerpTo(self, other, t):
+    self.x = self.x + (other.x-self.x) * t
+    self.y = self.y + (other.y-self.y) * t
 
   # COOL DUNDER FUNCTIONS
 
@@ -23,6 +27,14 @@ class Vector2D:
       return self.x
     elif (i == 1):
       return self.y
+    else:
+      raise IndexError("Index out of range")
+  
+  def __setitem__(self, val, i):
+    if (i == 0):
+      self.x = val
+    if (i == 1):
+      self.y = val
     else:
       raise IndexError("Index out of range")
     

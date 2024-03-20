@@ -2,6 +2,7 @@ import pygame
 import numpy as np
 import sys
 
+from Player import Player
 from utils.Vector2D import Vector2D
 
 
@@ -13,7 +14,7 @@ from utils.Vector2D import Vector2D
 pygame.init()
 
 fullscreen = True
-unscaled = (300,225)
+unscaled = (320,240)
 
 # make scaled screen
 if fullscreen:
@@ -32,8 +33,8 @@ else:
 # hide mouse
 pygame.mouse.set_visible(False)
 
-v = Vector2D(2,2)
-print(str(v.normalize()))
+# player init
+player = Player()
 
 
 
@@ -55,6 +56,7 @@ def getM():
 
 
 
+clock = pygame.time.Clock()
 while True:
   for event in pygame.event.get():
     # closing window
@@ -66,13 +68,23 @@ while True:
       pygame.quit()
       sys.exit()
 
+  player.move(pygame.key.get_pressed())
+  player.update()
+  print(player.mvmt_velocity)
+
+  # FRAME DRAWING
+
   screen.fill((0,0,0))
   WIN.fill((0,0,0))
 
   pygame.draw.circle(screen, (255,255,255), (screen.get_width()/2, screen.get_height()/2), 100)
   screen.blit(pygame.image.load("./assets/ui/cursor.png"), (getMX(),getMY()))
+  pygame.draw.rect(screen, (255,0,0), player)
 
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
 
   pygame.display.flip()
+
+  #FPS 
+  clock.tick(60)
