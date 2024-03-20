@@ -58,21 +58,23 @@ while True:
       pygame.quit()
       sys.exit()
 
+  # updates
   player.update()
-
-  # FRAME DRAWING
   camera.update()
 
+  # screens reset
   screen.fill((0,0,0))
   WIN.fill((0,0,0))
 
+  # test circle
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
+
   screen.blit(pygame.image.load("./assets/ui/cursor.png"), mouse.getM())
   player.draw(camera, screen)
 
+  # update real screen
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
-
   pygame.display.flip()
 
   #FPS 
