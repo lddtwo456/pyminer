@@ -16,13 +16,20 @@ class Player:
     self.mvmt_vector = Vector2D(0, 0)
 
     # max speed (magnitude of acceleration vector)
-    self.mvmt_speed = 1.5
+    self.mvmt_speed = 1
     # lerp to target movement velocity speed
     self.mvmt_lerp = .25
     # percent of velocity vector that lo
     self.friction = .1
 
-  def move(self, keys):
+  def update(self):
+    self.characterController(pygame.key.get_pressed())
+    
+    self.pos += self.mvmt_velocity
+    self.rect.left = np.round(self.pos[0])
+    self.rect.top = np.round(self.pos[1])
+
+  def characterController(self, keys):
     if keys[pygame.K_a]:
       l = -1
     else:
@@ -40,15 +47,14 @@ class Player:
     else:
       d = 0
 
+    self.move(l, r, u, d)
+
+  def move(self, l, r, u, d):
     self.mvmt_vector = Vector2D(l+r, u+d).normalize()
 
     if (self.mvmt_velocity != self.mvmt_vector*self.mvmt_speed):
       self.mvmt_velocity.lerpTo(self.mvmt_vector*self.mvmt_speed, self.mvmt_lerp)
-
-  def update(self):
-    self.pos += self.mvmt_velocity
-    self.rect.left = np.round(self.pos[0])
-    self.rect.top = np.round(self.pos[1])
+      self.mvmt_velocity.snapTo(self.mvmt_vector*self.mvmt_speed)
 
   # gets with dunder
   def __getitem__(self, i):

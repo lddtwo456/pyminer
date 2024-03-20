@@ -19,6 +19,13 @@ class Vector2D:
     self.x = self.x + (other.x-self.x) * t
     self.y = self.y + (other.y-self.y) * t
 
+  def snapTo(self, other):
+    # if close enough, set equal to
+    if (np.abs(self.x - other.x) < 0.01):
+      self.x = other.x
+    if (np.abs(self.y - other.y) < 0.01):
+      self.y = other.y
+
   # COOL DUNDER FUNCTIONS
 
   # lets you do v[0] for x or v[1] for y

@@ -3,6 +3,7 @@ import numpy as np
 import sys
 
 from Player import Player
+from utils.MouseFunctions import MouseFunctions
 from utils.Vector2D import Vector2D
 
 
@@ -33,22 +34,9 @@ else:
 # hide mouse
 pygame.mouse.set_visible(False)
 
-# player init
+# class inits
 player = Player()
-
-
-
-# FUNCITONS
-
-
-
-# scaled mouse positions
-def getMX():
-  return np.round((pygame.mouse.get_pos()[0] - blit_offset) / scale - .5)
-def getMY():
-  return np.round(pygame.mouse.get_pos()[1] / scale - .5)
-def getM():
-  return (getMX(), getMY())
+mouse = MouseFunctions(blit_offset, scale)
 
 
 
@@ -68,7 +56,6 @@ while True:
       pygame.quit()
       sys.exit()
 
-  player.move(pygame.key.get_pressed())
   player.update()
   print(player.mvmt_velocity)
 
@@ -78,7 +65,7 @@ while True:
   WIN.fill((0,0,0))
 
   pygame.draw.circle(screen, (255,255,255), (screen.get_width()/2, screen.get_height()/2), 100)
-  screen.blit(pygame.image.load("./assets/ui/cursor.png"), (getMX(),getMY()))
+  screen.blit(pygame.image.load("./assets/ui/cursor.png"), mouse.getM())
   pygame.draw.rect(screen, (255,0,0), player)
 
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
