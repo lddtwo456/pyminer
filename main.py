@@ -59,7 +59,6 @@ while True:
       sys.exit()
 
   player.update()
-  print(player.mvmt_velocity)
 
   # FRAME DRAWING
   camera.update()

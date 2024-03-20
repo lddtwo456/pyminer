@@ -23,12 +23,18 @@ class Player:
     # percent of velocity vector that lo
     self.friction = .1
 
+    # fun
+    self.dashed = 0
+
   def update(self):
     self.characterController(pygame.key.get_pressed())
     
-    self.pos += self.mvmt_velocity
+    self.pos += self.mvmt_velocity + self.velocity
     self.rect.left = np.round(self.pos[0])
     self.rect.top = np.round(self.pos[1])
+
+    if (self.velocity != Vector2D(0, 0)):
+      self.velocity.lerpTo(Vector2D(0, 0), .2)
 
   def characterController(self, keys):
     if keys[pygame.K_a]:
@@ -47,6 +53,12 @@ class Player:
       d = 1
     else:
       d = 0
+    if keys[pygame.K_SPACE]:
+      if (self.dashed == 0):
+        self.dash()
+        self.dashed = 1
+    else:
+      self.dashed = 0
 
     self.move(l, r, u, d)
 
@@ -56,6 +68,9 @@ class Player:
     if (self.mvmt_velocity != self.mvmt_vector*self.mvmt_speed):
       self.mvmt_velocity.lerpTo(self.mvmt_vector*self.mvmt_speed, self.mvmt_lerp)
       self.mvmt_velocity.snapTo(self.mvmt_vector*self.mvmt_speed)
+  
+  def dash(self):
+    self.velocity = self.mvmt_vector*10
 
   def draw(self, camera, WIN):
     pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-camera.pos[0], self.rect.top-camera.pos[1], self.rect.width, self.rect.height))
