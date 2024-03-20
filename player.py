@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+from Globals import Globals
 from utils.Vector2D import Vector2D
 
 class Player:
@@ -70,10 +71,10 @@ class Player:
       self.mvmt_velocity.snapTo(self.mvmt_vector*self.mvmt_speed)
   
   def dash(self):
-    self.velocity = self.mvmt_vector*10
+    self.velocity = self.mvmt_vector*15
 
-  def draw(self, camera, WIN):
-    pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-camera.pos[0], self.rect.top-camera.pos[1], self.rect.width, self.rect.height))
+  def draw(self):
+    pygame.draw.rect(Globals.SCREEN, (255,0,0), pygame.Rect(self.rect.left-Globals.CAMERA.pos[0], self.rect.top-Globals.CAMERA.pos[1], self.rect.width, self.rect.height))
 
   # gets with dunder
   def __getitem__(self, i):
