@@ -5,7 +5,6 @@ import sys
 from Camera import Camera
 from Player import Player
 from utils.Inputs import Inputs
-from utils.MouseFunctions import MouseFunctions
 from utils.Vector2D import Vector2D
 
 
