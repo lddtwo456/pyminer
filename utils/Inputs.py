@@ -3,8 +3,9 @@ import numpy as np
 from utils.Vector2D import Vector2D
 
 class Inputs:
-  # keys
+  # get presseds
   keys = None
+  mouse_buttons = None
 
   # player things
   l = 0
@@ -21,9 +22,10 @@ class Inputs:
     Inputs.blit_offset = blit_offset
     Inputs.scale = scale
 
-  def update(keys):
+  def update(keys, mouse_buttons):
     # update get_pressed
     Inputs.keys = keys
+    Inputs.mouse_buttons = mouse_buttons
 
   def getMvmtVector():
     if Inputs.keys == None: return Vector2D(0, 0)
@@ -50,7 +52,7 @@ class Inputs:
   def getDash():
     if Inputs.keys == None: return False
 
-    if Inputs.keys[pygame.K_SPACE]:
+    if Inputs.keys[pygame.K_SPACE] or Inputs.mouse_buttons[2]:
       if (Inputs.dashed != True):
         Inputs.dashed = True
         return True

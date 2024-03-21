@@ -27,6 +27,9 @@ class Player:
     # fun
     self.dashed = 0
 
+    # for drawing and dashing
+    self.camera = None
+
   def update(self):
     self.move()
     
@@ -48,10 +51,14 @@ class Player:
       self.mvmt_velocity.snapTo(self.mvmt_vector*self.mvmt_speed)
   
   def dash(self):
-    self.velocity = self.mvmt_vector*10
+    player_on_screen_vector = Vector2D(self.rect.left-self.camera.pos[0], self.rect.top-self.camera.pos[1])
+    mouse_vector = Vector2D(Inputs.getMX(), Inputs.getMY())
+    
+    self.velocity = (mouse_vector-player_on_screen_vector).normalize()*15
 
   def draw(self, camera, WIN):
-    pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-camera.pos[0], self.rect.top-camera.pos[1], self.rect.width, self.rect.height))
+    self.camera = camera
+    pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-self.camera.pos[0], self.rect.top-self.camera.pos[1], self.rect.width, self.rect.height))
 
   # gets with dunder
   def __getitem__(self, i):

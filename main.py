@@ -61,7 +61,7 @@ while True:
   # updates
   player.update()
   camera.update()
-  Inputs.update(pygame.key.get_pressed())
+  Inputs.update(pygame.key.get_pressed(), pygame.mouse.get_pressed())
 
   # screens reset
   screen.fill((0,0,0))
