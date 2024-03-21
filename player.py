@@ -1,5 +1,6 @@
 import pygame
 import numpy as np
+from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
 
 class Player:
@@ -27,7 +28,7 @@ class Player:
     self.dashed = 0
 
   def update(self):
-    self.characterController(pygame.key.get_pressed())
+    self.move()
     
     self.pos += self.mvmt_velocity + self.velocity
     self.rect.left = np.round(self.pos[0])
@@ -36,34 +37,11 @@ class Player:
     if (self.velocity != Vector2D(0, 0)):
       self.velocity.lerpTo(Vector2D(0, 0), .2)
 
-  def characterController(self, keys):
-    if keys[pygame.K_a]:
-      l = -1
-    else:
-      l = 0
-    if keys[pygame.K_d]:
-      r = 1
-    else:
-      r = 0
-    if keys[pygame.K_w]:
-      u = -1
-    else:
-      u = 0
-    if keys[pygame.K_s]:
-      d = 1
-    else:
-      d = 0
-    if keys[pygame.K_SPACE]:
-      if (self.dashed == 0):
-        self.dash()
-        self.dashed = 1
-    else:
-      self.dashed = 0
+  def move(self):
+    self.mvmt_vector = Inputs.getMvmtVector()
 
-    self.move(l, r, u, d)
-
-  def move(self, l, r, u, d):
-    self.mvmt_vector = Vector2D(l+r, u+d).normalize()
+    if (Inputs.getDash()):
+      self.dash()
 
     if (self.mvmt_velocity != self.mvmt_vector*self.mvmt_speed):
       self.mvmt_velocity.lerpTo(self.mvmt_vector*self.mvmt_speed, self.mvmt_lerp)

@@ -4,6 +4,7 @@ import sys
 
 from Camera import Camera
 from Player import Player
+from utils.Inputs import Inputs
 from utils.MouseFunctions import MouseFunctions
 from utils.Vector2D import Vector2D
 
@@ -37,8 +38,8 @@ pygame.mouse.set_visible(False)
 
 # class inits
 player = Player()
-mouse = MouseFunctions(blit_offset, scale)
 camera = Camera(player, 0.1, unscaled)
+Inputs.mouseInit(blit_offset, scale)
 
 
 
@@ -61,6 +62,7 @@ while True:
   # updates
   player.update()
   camera.update()
+  Inputs.update(pygame.key.get_pressed())
 
   # screens reset
   screen.fill((0,0,0))
@@ -69,7 +71,7 @@ while True:
   # test circle
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
 
-  screen.blit(pygame.image.load("./assets/ui/cursor.png"), mouse.getM())
+  screen.blit(pygame.image.load("./assets/ui/cursor.png"), Inputs.getM())
   player.draw(camera, screen)
 
   # update real screen
