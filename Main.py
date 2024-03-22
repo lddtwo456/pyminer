@@ -4,6 +4,7 @@ import sys
 
 from Camera import Camera
 from Player import Player
+from entities.EntityHandler import EntityHandler
 from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
 
@@ -15,7 +16,7 @@ from utils.Vector2D import Vector2D
 
 pygame.init()
 
-fullscreen = True
+fullscreen = False
 unscaled = (320,240)
 
 # make scaled screen
@@ -39,6 +40,8 @@ pygame.mouse.set_visible(False)
 player = Player()
 camera = Camera(player, 0.1, unscaled)
 Inputs.mouseInit(blit_offset, scale)
+EntityHandler.init(player)
+EntityHandler.addEntity("enemy", "follower", None)
 
 
 
@@ -59,9 +62,10 @@ while True:
       sys.exit()
 
   # updates
-  player.update()
-  camera.update()
   Inputs.update(pygame.key.get_pressed(), pygame.mouse.get_pressed())
+  player.update()
+  EntityHandler.update()
+  camera.update()
 
   # screens reset
   screen.fill((0,0,0))
