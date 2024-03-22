@@ -29,6 +29,8 @@ class Player:
 
     # for drawing and dashing
     self.camera = None
+    self.color = (0,255,0)
+    self.img = None
 
   def update(self):
     self.move()
@@ -55,10 +57,6 @@ class Player:
     mouse_vector = Vector2D(Inputs.getMX(), Inputs.getMY())
     
     self.velocity = (mouse_vector-player_on_screen_vector).normalize()*15
-
-  def draw(self, camera, WIN):
-    self.camera = camera
-    pygame.draw.rect(WIN, (255,0,0), pygame.Rect(self.rect.left-self.camera.pos[0], self.rect.top-self.camera.pos[1], self.rect.width, self.rect.height))
 
   # gets with dunder
   def __getitem__(self, i):

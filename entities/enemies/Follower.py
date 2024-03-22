@@ -23,16 +23,19 @@ class Follower:
     self.mvmt_vector = Vector2D(0, 0)
 
     # max speed (magnitude of acceleration vector)
-    self.mvmt_speed = .6
+    self.mvmt_speed = .4
     # lerp to target movement velocity speed
     self.mvmt_lerp = .25
     # percent of velocity vector that lo
     self.friction = .2
 
+    # drawing
+    self.camera = None
+    self.color = (255,0,0)
+    self.img = None
+
     if args != None:
       self.pos = args.get("pos")
-    
-    print("init")
   
   def update(self):
     self.move()
@@ -43,8 +46,6 @@ class Follower:
 
     if (self.velocity != Vector2D(0, 0)):
       self.velocity.lerpTo(Vector2D(0, 0), self.friction)
-
-    print(self.pos)
 
   def move(self):
     self.mvmt_vector = (EntityPointers.PLAYER.pos-self.pos).normalize()

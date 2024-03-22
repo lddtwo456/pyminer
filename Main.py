@@ -4,6 +4,7 @@ import sys
 
 from Camera import Camera
 from Player import Player
+from SpritePainter import SpritePainter
 from entities.EntityHandler import EntityHandler
 from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
@@ -16,7 +17,7 @@ from utils.Vector2D import Vector2D
 
 pygame.init()
 
-fullscreen = False
+fullscreen = True
 unscaled = (320,240)
 
 # make scaled screen
@@ -42,6 +43,11 @@ camera = Camera(player, 0.1, unscaled)
 Inputs.mouseInit(blit_offset, scale)
 EntityHandler.init(player)
 EntityHandler.addEntity("enemy", "follower", None)
+
+for entity in EntityHandler.entities:
+  SpritePainter.addSprite(entity)
+SpritePainter.addSprite(player)
+
 
 
 
@@ -75,7 +81,7 @@ while True:
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
 
   screen.blit(pygame.image.load("./assets/ui/cursor.png"), Inputs.getM())
-  player.draw(camera, screen)
+  SpritePainter.drawSprites(camera, screen)
 
   # update real screen
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
