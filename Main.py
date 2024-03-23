@@ -38,7 +38,7 @@ else:
   screen = pygame.Surface(unscaled)
 
 # for debug text
-font = pygame.font.Font("fonts/Consolas.ttf", 32)
+font = pygame.font.Font("./assets/fonts/Consolas.ttf", 32)
 
 # hide mouse
 pygame.mouse.set_visible(False)
