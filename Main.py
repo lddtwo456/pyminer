@@ -102,4 +102,4 @@ while True:
   pygame.display.flip()
 
   #FPS 
-  clock.tick(240)
+  clock.tick(60)

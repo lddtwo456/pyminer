@@ -8,7 +8,9 @@ class SpritePainter:
     SpritePainter.sprites.append(sprite)
 
   def drawSprites(camera, WIN):
-    for sprite in SpritePainter.sprites:
+    sorted_sprites = sorted(SpritePainter.sprites, key=lambda sprite: sprite.pos.y)
+
+    for sprite in sorted_sprites:
       sprite.camera = camera
 
       if ((sprite.pos+sprite.center)-(camera.pos+camera.screen_center)).magnitude() > (np.sqrt((WIN.get_width()/2)**2 + (WIN.get_height()/2)**2)):
