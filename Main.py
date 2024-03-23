@@ -49,8 +49,8 @@ camera = Camera(player, 0.1, unscaled)
 Inputs.mouseInit(blit_offset, scale)
 EntityHandler.init(player)
 
-#for i in range(100):
-#  EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-400,400), random.randint(-400,400))})
+for i in range(250):
+  EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-400,400), random.randint(-400,400))})
 
 for entity in EntityHandler.entities:
   SpritePainter.addSprite(entity)
@@ -90,7 +90,6 @@ while True:
   # screens reset
   screen.fill((0,0,0))
   WIN.fill((0,0,0))
-  WIN.blit(fps, fpsRect)
 
   # test circle
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
@@ -101,6 +100,7 @@ while True:
   # update real screen
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))
   WIN.blit(scaled_screen, (blit_offset, 0))
+  WIN.blit(fps, fpsRect)
   pygame.display.flip()
 
   #FPS 

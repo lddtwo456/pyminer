@@ -1,4 +1,5 @@
 import pygame
+import numpy as np
 
 class SpritePainter:
   sprites = []
@@ -10,7 +11,10 @@ class SpritePainter:
     for sprite in SpritePainter.sprites:
       sprite.camera = camera
 
-      if sprite.img != None:
-        print("draw sprite img")
+      if ((sprite.pos+sprite.center)-(camera.pos+camera.screen_center)).magnitude() > (np.sqrt((WIN.get_width()/2)**2 + (WIN.get_height()/2)**2)):
+        pass
       else:
-        pygame.draw.rect(WIN, sprite.color, pygame.Rect(sprite.rect.left-camera.pos[0], sprite.rect.top-camera.pos[1], sprite.rect.width, sprite.rect.height))
+        if sprite.img != None:
+          print("draw sprite img")
+        else:
+          pygame.draw.rect(WIN, sprite.color, pygame.Rect(sprite.rect.left-camera.pos[0], sprite.rect.top-camera.pos[1], sprite.rect.width, sprite.rect.height))
