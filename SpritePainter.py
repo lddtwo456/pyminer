@@ -8,7 +8,7 @@ class SpritePainter:
     SpritePainter.sprites.append(sprite)
 
   def drawSprites(camera, WIN):
-    sorted_sprites = sorted(SpritePainter.sprites, key=lambda sprite: sprite.pos.y)
+    sorted_sprites = sorted(SpritePainter.sprites, key=lambda sprite: sprite.pos[1])
 
     for sprite in sorted_sprites:
       sprite.camera = camera
