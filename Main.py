@@ -56,9 +56,6 @@ for entity in EntityHandler.entities:
   SpritePainter.addSprite(entity)
 SpritePainter.addSprite(player)
 
-camera.setTarget(EntityHandler.entities[0])
-
-
 
 # GAME LOOP
 

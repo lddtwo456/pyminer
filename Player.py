@@ -37,8 +37,8 @@ class Player:
     self.move()
     
     self.pos += self.mvmt_velocity + self.velocity
-    self.rect.left = np.round(self.pos[0])
-    self.rect.top = np.round(self.pos[1])
+    self.rect.left = np.round(self.pos[0]-(self.dimensions[0]/2))
+    self.rect.top = np.round(self.pos[1]-self.dimensions[1])
 
     if (self.velocity != Vector2D(0, 0)):
       self.velocity.lerpTo(Vector2D(0, 0), .2)

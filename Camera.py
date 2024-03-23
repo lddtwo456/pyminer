@@ -20,7 +20,7 @@ class Camera:
     self.lerp_speed = speed
 
   def update(self):
-    self.target_pos = self.target.pos - self.target.center - self.screen_center
+    self.target_pos = self.target.pos + self.target.center - self.screen_center
 
     if (self.pos != self.target_pos):
       self.pos.lerpTo(self.target_pos, self.lerp_speed)
