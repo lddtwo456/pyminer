@@ -4,6 +4,7 @@ import numpy as np
 from entities.EntityPointers import EntityPointers
 from utils.Vector2D import Vector2D
 
+import random
 
 class Follower:
   def __init__(self, args):
@@ -31,7 +32,7 @@ class Follower:
 
     # drawing
     self.camera = None
-    self.color = (255,0,0)
+    self.color = (random.randint(100,255),random.randint(100,255),random.randint(100,255))
     self.img = None
 
     if args != None:

@@ -1,6 +1,7 @@
 import pygame
 import numpy as np
 import sys
+import time
 
 from Camera import Camera
 from Player import Player
@@ -8,6 +9,8 @@ from SpritePainter import SpritePainter
 from entities.EntityHandler import EntityHandler
 from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
+
+import random
 
 
 
@@ -34,6 +37,9 @@ else:
   blit_offset = 0
   screen = pygame.Surface(unscaled)
 
+# for debug text
+font = pygame.font.Font("fonts/Consolas.ttf", 32)
+
 # hide mouse
 pygame.mouse.set_visible(False)
 
@@ -42,7 +48,9 @@ player = Player()
 camera = Camera(player, 0.1, unscaled)
 Inputs.mouseInit(blit_offset, scale)
 EntityHandler.init(player)
-EntityHandler.addEntity("enemy", "follower", None)
+
+#for i in range(100):
+#  EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-400,400), random.randint(-400,400))})
 
 for entity in EntityHandler.entities:
   SpritePainter.addSprite(entity)
@@ -56,7 +64,13 @@ SpritePainter.addSprite(player)
 
 
 clock = pygame.time.Clock()
+start_frame = 1
 while True:
+  # fps
+  fps = font.render(str(int(clock.get_fps())), True, (255,255,255))
+  fpsRect = fps.get_rect()
+  start_frame = time.time()
+
   for event in pygame.event.get():
     # closing window
     if event.type == pygame.KEYDOWN:
@@ -76,6 +90,7 @@ while True:
   # screens reset
   screen.fill((0,0,0))
   WIN.fill((0,0,0))
+  WIN.blit(fps, fpsRect)
 
   # test circle
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
