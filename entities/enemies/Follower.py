@@ -16,8 +16,9 @@ class Follower:
     self.velocity = Vector2D(0, 0)
 
     # screen position and collisions, center used for camera centering
-    self.rect = pygame.Rect(self.pos[0], self.pos[1], 8, 12)
-    self.center = Vector2D(self.rect.width/2, self.rect.height/2)
+    self.dimensions = (8, 8)
+    self.rect = pygame.Rect(self.pos[0]-(self.dimensions[0]/2), self.pos[1]-self.dimensions[1], self.dimensions[0], self.dimensions[1])
+    self.center = Vector2D(0, -1*(self.dimensions[1]/2))
 
     # separate outside and movement velocy so there can be a max movement speed and you can be blown back by stuff
     self.mvmt_velocity = Vector2D(0, 0)

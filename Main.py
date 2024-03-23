@@ -49,13 +49,14 @@ camera = Camera(player, 0.1, unscaled)
 Inputs.mouseInit(blit_offset, scale)
 EntityHandler.init(player)
 
-for i in range(250):
-  EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-400,400), random.randint(-400,400))})
+for i in range(50):
+  EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-200,200), random.randint(-200,200))})
 
 for entity in EntityHandler.entities:
   SpritePainter.addSprite(entity)
 SpritePainter.addSprite(player)
 
+camera.setTarget(EntityHandler.entities[0])
 
 
 
@@ -104,4 +105,4 @@ while True:
   pygame.display.flip()
 
   #FPS 
-  clock.tick(60)
+  clock.tick(240)
