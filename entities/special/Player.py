@@ -30,7 +30,7 @@ class Player:
     self.img = None
     self.camera = None
     self.color = (0,255,0)
-    self.dimensions = (8, 12)
+    self.dimensions = (16, 24)
     self.rect = pygame.Rect(self.pos[0]-(self.dimensions[0]/2), self.pos[1]-self.dimensions[1], self.dimensions[0], self.dimensions[1])
     self.center = Vector2D(0, -1*(self.dimensions[1]/2))
 

@@ -28,7 +28,7 @@ class Exploder:
 
     # drawing
     self.img = None
-    self.dimensions = (8, 8)
+    self.dimensions = (16, 16)
     self.rect = pygame.Rect(self.pos[0]-(self.dimensions[0]/2), self.pos[1]-self.dimensions[1], self.dimensions[0], self.dimensions[1])
     self.center = Vector2D(0, -1*(self.dimensions[1]/2))
     self.camera = None
