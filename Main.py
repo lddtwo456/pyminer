@@ -4,8 +4,8 @@ import sys
 import time
 
 from Camera import Camera
-from Player import Player
-from SpritePainter import SpritePainter
+from entities.special.Player import Player
+from entities.EntityPainter import EntityPainter
 from entities.EntityHandler import EntityHandler
 from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
@@ -51,10 +51,9 @@ EntityHandler.init(player)
 
 for i in range(50):
   EntityHandler.addEntity("enemy", "follower", {"pos": Vector2D(random.randint(-200,200), random.randint(-200,200))})
+for i in range(10):
+  EntityHandler.addEntity("enemy", "exploder", {"pos": Vector2D(random.randint(-200,200), random.randint(-200,200))})
 
-for entity in EntityHandler.entities:
-  SpritePainter.addSprite(entity)
-SpritePainter.addSprite(player)
 
 
 # GAME LOOP
@@ -81,7 +80,6 @@ while True:
 
   # updates
   Inputs.update(pygame.key.get_pressed(), pygame.mouse.get_pressed())
-  player.update()
   EntityHandler.update()
   camera.update()
 
@@ -93,7 +91,7 @@ while True:
   pygame.draw.circle(screen, (255,255,255), (40-camera.pos[0], 40-camera.pos[1]), 50)
 
   screen.blit(pygame.image.load("./assets/ui/cursor.png"), Inputs.getM())
-  SpritePainter.drawSprites(camera, screen)
+  EntityPainter.drawEntities(camera, screen, EntityHandler.entities)
 
   # update real screen
   scaled_screen = pygame.transform.scale(screen, (scale*screen.get_width(), scale*screen.get_height()))

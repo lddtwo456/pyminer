@@ -3,6 +3,7 @@ from entities.enemies.EnemyHandler import EnemyHandler
 
 class EntityHandler:
   entities = []
+  EntityPointers.ENTITIES = entities
 
   def update():
     for entity in EntityHandler.entities:
@@ -15,3 +16,4 @@ class EntityHandler:
   def init(player):
     # get references to objects that entities may need
     EntityPointers.PLAYER = player
+    EntityHandler.entities.append(player)

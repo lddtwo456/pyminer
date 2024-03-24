@@ -6,10 +6,10 @@ from utils.Vector2D import Vector2D
 
 import random
 
-class Follower:
+class Exploder:
   def __init__(self, args):
     self.category = "enemy"
-    self.type = "follower"
+    self.type = "exploder"
 
     # pos vector allows for subpixel movements
     self.pos = Vector2D(0, 0)
@@ -28,7 +28,7 @@ class Follower:
 
     # drawing
     self.img = None
-    self.dimensions = (4, 4)
+    self.dimensions = (8, 8)
     self.rect = pygame.Rect(self.pos[0]-(self.dimensions[0]/2), self.pos[1]-self.dimensions[1], self.dimensions[0], self.dimensions[1])
     self.center = Vector2D(0, -1*(self.dimensions[1]/2))
     self.camera = None
@@ -49,6 +49,10 @@ class Follower:
 
     if (self.velocity != Vector2D(0, 0)):
       self.velocity.lerpTo(Vector2D(0, 0), self.friction)
+
+    if ((self.pos+self.center).getTo(EntityPointers.PLAYER.pos+EntityPointers.PLAYER.center).magnitude() < 20):
+      EntityPointers.PLAYER.velocity += (self.pos+self.center).getTo(EntityPointers.PLAYER.pos+EntityPointers.PLAYER.center).normalize()*12
+      self.kill()
 
   def move(self):
     self.mvmt_vector = self.pos.getTo(EntityPointers.PLAYER.pos).normalize()

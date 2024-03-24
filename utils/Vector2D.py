@@ -15,6 +15,9 @@ class Vector2D:
     else:
       return Vector2D(0, 0)
     
+  def getTo(self, other):
+    return other-self
+    
   def lerpTo(self, other, t):
     self.x = self.x + (other.x-self.x) * t
     self.y = self.y + (other.y-self.y) * t
