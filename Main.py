@@ -7,6 +7,7 @@ from Camera import Camera
 from entities.special.Player import Player
 from entities.EntityPainter import EntityPainter
 from entities.EntityHandler import EntityHandler
+from utils.Hitbox import Hitbox
 from utils.Inputs import Inputs
 from utils.Vector2D import Vector2D
 
@@ -59,6 +60,11 @@ for i in range(10):
 # GAME LOOP
 
 
+
+test1 = Hitbox('polygon', [Vector2D(0,0), Vector2D(4,0), Vector2D(2,3)], Vector2D(20,0))
+test2 = Hitbox('polygon', [Vector2D(3,2), Vector2D(1,0), Vector2D(3,3)])
+
+print(Hitbox.P2P(test1, test2))
 
 clock = pygame.time.Clock()
 start_frame = 1

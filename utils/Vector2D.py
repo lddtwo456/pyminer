@@ -14,6 +14,9 @@ class Vector2D:
       return Vector2D(self[0]/m, self[1]/m)
     else:
       return Vector2D(0, 0)
+  
+  def normalVector(self):
+    return Vector2D(self[1], self[0])
     
   def getTo(self, other):
     return other-self
