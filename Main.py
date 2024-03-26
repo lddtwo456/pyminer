@@ -54,7 +54,7 @@ for i in range(50):
 for i in range(10):
   EntityHandler.addEntity("enemy", "exploder", {"pos": Vector2D(random.randint(-200,200), random.randint(-200,200))})
 
-
+  
 
 # GAME LOOP
 

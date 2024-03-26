@@ -17,7 +17,7 @@ class Player:
     self.mvmt_vector = Vector2D(0, 0)
 
     # max speed (magnitude of acceleration vector)
-    self.mvmt_speed = 1
+    self.mvmt_speed = 1.5
     # lerp to target movement velocity speed
     self.mvmt_lerp = .25
     # percent of velocity vector that lo
