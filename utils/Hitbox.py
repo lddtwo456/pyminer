@@ -29,9 +29,9 @@ class Hitbox:
     for i in range(len(p1.vertices)):
       vertex = p1.vertices[i]
       if i != len(p1.vertices)-1:
-        next_vertex = p1.vertices[i+1]
+        next_vertex = p1.vertices[i+1]+p1.center_pos
       else:
-        next_vertex = p1.vertices[0]
+        next_vertex = p1.vertices[0]+p1.center_pos
 
       line = vertex.getTo(next_vertex)
       perp_line = line.normalVector()
