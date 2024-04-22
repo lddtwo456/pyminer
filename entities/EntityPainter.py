@@ -15,3 +15,5 @@ class EntityPainter:
           print("draw entity img")
         else:
           pygame.draw.rect(WIN, entity.color, pygame.Rect(entity.rect.left-camera.pos[0], entity.rect.top-camera.pos[1], entity.rect.width, entity.rect.height))
+          if entity.type == "player":
+            entity.drawVectors(WIN)
