@@ -21,7 +21,7 @@ import random
 
 pygame.init()
 
-fullscreen = True
+fullscreen = False
 unscaled = (480,360)
 
 # make scaled screen

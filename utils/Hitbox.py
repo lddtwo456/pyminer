@@ -62,8 +62,8 @@ class Hitbox:
         
 
   def getLims(list):
-    max = 0
-    min = 0
+    max = float('-inf')
+    min = float('inf')
     for item in list:
       if item > max:
         max = item
